@@ -3,7 +3,7 @@ const Note = require("../models/note.model.js");
 // Create and Save a new Note
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.content) {
+  if (!req.body.email) {
     return res.status(400).send({
       message: "Note content can not be empty"
     });
@@ -11,8 +11,8 @@ exports.create = (req, res) => {
 
   // Create a Note
   const note = new Note({
-    title: req.body.title || "Untitled Note",
-    content: req.body.content
+    name: req.body.name || "Untitled Note",
+    email: req.body.email
   });
 
   // Save Note in the database
@@ -67,7 +67,8 @@ exports.findOne = (req, res) => {
 // Update a note identified by the noteId in the request
 exports.update = (req, res) => {
   // Validate Request
-  if (!req.body.content) {
+  console.log(req.body);
+  if (!req.body.email) {
     return res.status(400).send({
       message: "Note content can not be empty"
     });
@@ -77,8 +78,8 @@ exports.update = (req, res) => {
   Note.findByIdAndUpdate(
     req.params.noteId,
     {
-      title: req.body.title || "Untitled Note",
-      content: req.body.content
+      name: req.body.name || "Untitled Note",
+      email: req.body.email
     },
     { new: true }
   )
